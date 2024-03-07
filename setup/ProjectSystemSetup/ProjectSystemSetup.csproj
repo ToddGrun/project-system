@@ -24,6 +24,8 @@
 
     <!-- Set's the JSON manifest name for GetVsixPrimaryOutputs in Directory.Build.targets -->
     <VsixManifestPackageId>$(_ManagedProjectName)</VsixManifestPackageId>
+
+    <VSSDKTargetPlatformRegRootSuffix>RoslynDev</VSSDKTargetPlatformRegRootSuffix>
   </PropertyGroup>
 
   <ItemGroup>
