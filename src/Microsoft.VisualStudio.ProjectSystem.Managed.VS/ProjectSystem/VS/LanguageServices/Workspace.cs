@@ -525,16 +525,15 @@ internal sealed class Workspace : OnceInitializedOnceDisposedUnderLockAsync, IWo
                     isActiveEditorContext: _activeEditorContextTracker.IsActiveEditorContext(ContextId),
                     isActiveConfiguration: IsPrimary);
 
-                Context.StartBatch();
-
                 try
                 {
+                    var disposableBatchScope = await Context.CreateBatchScopeAsync(CancellationToken.None);
+                    await using var _ = disposableBatchScope.ConfigureAwait(false);
+                    
                     applyFunc(update, contextState, cancellationToken);
                 }
                 finally
                 {
-                    await Context.EndBatchAsync();
-
                     UpdateProgressRegistration();
                 }
             }
